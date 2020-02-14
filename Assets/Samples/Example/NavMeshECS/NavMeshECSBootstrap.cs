@@ -20,7 +20,6 @@ namespace de.JochenHeckl.NavMeshECS
 
             var queryPathSystem = world.GetOrCreateSystem<QueryPathSystem>();
 
-
             var settings = GameObjectConversionSettings.FromWorld( world, null );
             agentPrefabEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy( agentPrefab, settings );
 
