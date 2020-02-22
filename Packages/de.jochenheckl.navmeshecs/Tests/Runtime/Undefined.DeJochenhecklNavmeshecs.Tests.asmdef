@@ -1,0 +1,11 @@
+{
+    "name": "Undefined.DeJochenhecklNavmeshecs.Tests",
+    "references": [
+        "Undefined.DeJochenhecklNavmeshecs"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

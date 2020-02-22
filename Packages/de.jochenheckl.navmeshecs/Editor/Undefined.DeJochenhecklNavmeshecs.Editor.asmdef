@@ -1,0 +1,10 @@
+{
+    "name": "Undefined.DeJochenhecklNavmeshecs.Editor",
+    "references": [
+      "Undefined.DeJochenhecklNavmeshecs"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
