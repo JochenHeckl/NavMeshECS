@@ -19,7 +19,7 @@ namespace de.JochenHeckl.NavMeshECS
 
         public NavMeshQuery navMeshQuery;
         public Entity queryingEntity;
-        public QueryPathRequest queryPathRequest;
+        public QueryPathRequestData queryPathRequest;
         public NativeArray<float> areaCosts;
 
         public NativeArray<UpdateResult> updateResult;

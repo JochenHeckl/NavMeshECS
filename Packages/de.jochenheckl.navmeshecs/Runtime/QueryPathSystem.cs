@@ -34,12 +34,12 @@ namespace de.JochenHeckl.NavMeshECS
         {
             foreach (var query in activeJobs.Select( x => x.navMeshQuery ).Concat( idleQueries ))
             {
-                query.Dispose();                
+                query.Dispose();
             }
 
             foreach (var job in activeJobs)
             {
-                if( job.areaCosts.IsCreated )
+                if (job.areaCosts.IsCreated)
                 {
                     job.areaCosts.Dispose();
                 }
@@ -55,7 +55,7 @@ namespace de.JochenHeckl.NavMeshECS
                 }
             }
 
-                base.OnDestroy();
+            base.OnDestroy();
         }
 
         protected override void OnUpdate()
@@ -70,7 +70,7 @@ namespace de.JochenHeckl.NavMeshECS
 
             var newActiveJobs = new List<UpdateNavMeshQueryJob>();
 
-            Entities.ForEach( ( Entity entity, ref QueryPathRequest request ) =>
+            Entities.ForEach( ( Entity entity, ref QueryPathRequestData request ) =>
             {
                 if (idleQueries.Any())
                 {
@@ -87,7 +87,7 @@ namespace de.JochenHeckl.NavMeshECS
                     } );
                 }
 
-                PostUpdateCommands.RemoveComponent<QueryPathRequest>( entity );
+                PostUpdateCommands.RemoveComponent<QueryPathRequestData>( entity );
             } );
 
             activeJobs = activeJobs.Concat( newActiveJobs ).ToArray();
@@ -109,10 +109,10 @@ namespace de.JochenHeckl.NavMeshECS
 
                 if (updateResult.queryStatus != PathQueryStatus.InProgress)
                 {
-                    if ( (updateResult.queryStatus == PathQueryStatus.Success) || (updateResult.queryStatus == PathQueryStatus.PartialResult) )
+                    if ((updateResult.queryStatus == PathQueryStatus.Success) || (updateResult.queryStatus == PathQueryStatus.PartialResult))
                     {
-                        var buffer = PostUpdateCommands.AddBuffer< QueryPathResult>( activeJobs[activeJobIdx].queryingEntity );
-                        
+                        var buffer = PostUpdateCommands.AddBuffer<QueryPathResultData>( activeJobs[activeJobIdx].queryingEntity );
+
                         buffer.ResizeUninitialized( updateResult.pathResultLength );
 
                         for (int resultVertexIndex = 0; resultVertexIndex < updateResult.pathResultLength; resultVertexIndex++)
@@ -150,12 +150,12 @@ namespace de.JochenHeckl.NavMeshECS
 
         private NativeArray<float> MakeAreaCosts( int areaCostIndex )
         {
-            if(areaCostsMapping.Length > areaCostIndex )
+            if (areaCostsMapping.Length > areaCostIndex)
             {
                 return new NativeArray<float>( areaCostsMapping[areaCostIndex], Allocator.TempJob );
             }
 
-            return new NativeArray<float>( Enumerable.Repeat(1f, 32).ToArray(), Allocator.TempJob );
+            return new NativeArray<float>( Enumerable.Repeat( 1f, 32 ).ToArray(), Allocator.TempJob );
         }
 
         private void Reconfigure()
