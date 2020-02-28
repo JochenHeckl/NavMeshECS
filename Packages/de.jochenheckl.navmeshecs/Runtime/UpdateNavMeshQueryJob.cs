@@ -73,7 +73,7 @@ namespace de.JochenHeckl.NavMeshECS
                         updateResult[0] = new UpdateResult()
                         {
                             queryStatus = queryStatus,
-                            pathResultLength = SSFASolver.Solve(
+                            pathResultLength = SSFASolver.SolveV2(
                                 queryPathRequest.startPosition,
                                 queryPathRequest.destinationPosition,
                                 portals.Select( x => ((float3) x.left, (float3) x.right) ).ToArray(),
@@ -101,7 +101,7 @@ namespace de.JochenHeckl.NavMeshECS
                     queryPathRequest.areaMask );
 
             var destinationLocation = navMeshQuery.MapLocation(
-                queryPathRequest.startPosition,
+                queryPathRequest.destinationPosition,
                 queryPathRequest.mapPositionExtents,
                 queryPathRequest.agentTypeId,
                 queryPathRequest.areaMask );

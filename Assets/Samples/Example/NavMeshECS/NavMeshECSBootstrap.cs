@@ -5,6 +5,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace de.JochenHeckl.NavMeshECS
 {
@@ -13,6 +14,9 @@ namespace de.JochenHeckl.NavMeshECS
     {
         public GameObject agentPrefab;
         public int numAgentsToSpawn = 1;
+
+        public int agentMinVelocity = 2;
+        public int agentMaxVelocity = 5;
 
         public float minSpawnRadius = 10f;
         public float maxSpawnRadius = 40f;
@@ -24,6 +28,10 @@ namespace de.JochenHeckl.NavMeshECS
         void Start()
         {
             UnityEngine.Random.InitState( 0 );
+
+            var repathSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<RepathToRandomPositionSystem>();
+            repathSystem.MinSpawnRadius = minSpawnRadius;
+            repathSystem.MaxSpawnRadius = maxSpawnRadius;
 
             SpawnAgents( numAgentsToSpawn, minSpawnRadius, maxSpawnRadius );
         }
@@ -40,30 +48,14 @@ namespace de.JochenHeckl.NavMeshECS
                 activeAgent = entityManager.Instantiate( agentPrefabEntity );
 
                 var agentPosition = MakeRandomPosition( minSpawnRadius, maxSpawnRadius );
-                var firstDestination = MakeRandomPosition( minSpawnRadius, maxSpawnRadius );
-
-                Debug.DrawLine(
-                    new Vector3( agentPosition.x, agentPosition.y, agentPosition.z ) + Vector3.up,
-                    new Vector3( firstDestination.x, firstDestination.y, firstDestination.z ) + Vector3.up,
-                    Color.red,
-                    5f );
-
+                
                 entityManager.SetComponentData( activeAgent, new Translation() { Value = agentPosition } );
-
-                entityManager.AddComponentData( activeAgent, new QueryPathRequestData()
-                {
-                    agentTypeId = 0,
-                    areaMask = -1,
-                    startPosition = agentPosition,
-                    destinationPosition = firstDestination,
-                    mapPositionExtents = new float3( 1f, 1f, 1f )
-                } );
-
 
                 entityManager.AddComponentData( activeAgent, new PathLocomotionData()
                 {
-                    maxVelocity = 1f
-                } );
+                    destinationReached = true,
+                    maxVelocity = Random.Range( agentMinVelocity, agentMaxVelocity )
+                } ); ;
 
             }
         }

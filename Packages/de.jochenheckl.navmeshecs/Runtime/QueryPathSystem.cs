@@ -111,7 +111,7 @@ namespace de.JochenHeckl.NavMeshECS
                 {
                     if ((updateResult.queryStatus == PathQueryStatus.Success) || (updateResult.queryStatus == PathQueryStatus.PartialResult))
                     {
-                        var buffer = PostUpdateCommands.AddBuffer<QueryPathResultData>( activeJobs[activeJobIdx].queryingEntity );
+                        var buffer = PostUpdateCommands.AddBuffer<PathVertexResultData>( activeJobs[activeJobIdx].queryingEntity );
 
                         buffer.ResizeUninitialized( updateResult.pathResultLength );
 
