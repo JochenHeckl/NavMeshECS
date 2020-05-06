@@ -73,7 +73,7 @@ namespace de.JochenHeckl.NavMeshECS
                         updateResult[0] = new UpdateResult()
                         {
                             queryStatus = queryStatus,
-                            pathResultLength = SSFASolver.SolveV2(
+                            pathResultLength = SSFASolver.Solve(
                                 queryPathRequest.startPosition,
                                 queryPathRequest.destinationPosition,
                                 portals.Select( x => ((float3) x.left, (float3) x.right) ).ToArray(),

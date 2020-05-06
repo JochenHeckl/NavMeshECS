@@ -25,7 +25,7 @@ namespace de.JochenHeckl.NavMeshECS.Editor.Tests
 
             using (var pathResult = new NativeArray<float3>( 10, Allocator.Temp ))
             {
-                var pathLength = SSFASolver.SolveV2( start, destination, portals, pathResult );
+                var pathLength = SSFASolver.Solve( start, destination, portals, pathResult );
 
                 Assert.AreEqual( pathResult.Take( pathLength ).ToArray(), new float3[] { start, destination } );
             }
@@ -43,7 +43,7 @@ namespace de.JochenHeckl.NavMeshECS.Editor.Tests
 
             using (var pathResult = new NativeArray<float3>( 10, Allocator.Temp ))
             {
-                var pathLength = SSFASolver.SolveV2( start, destination, portals, pathResult );
+                var pathLength = SSFASolver.Solve( start, destination, portals, pathResult );
 
                 Assert.AreEqual( pathResult.Take( pathLength ).ToArray(), new float3[] { start, portals[0].right, destination } );
             }
@@ -66,7 +66,7 @@ namespace de.JochenHeckl.NavMeshECS.Editor.Tests
 
             using (var pathResult = new NativeArray<float3>( 10, Allocator.Temp ))
             {
-                var pathLength = SSFASolver.SolveV2( start, destination, portals, pathResult );
+                var pathLength = SSFASolver.Solve( start, destination, portals, pathResult );
 
                 Assert.AreEqual(
                     pathResult.Take( pathLength ).ToArray(),
@@ -91,7 +91,7 @@ namespace de.JochenHeckl.NavMeshECS.Editor.Tests
 
             using (var pathResult = new NativeArray<float3>( 10, Allocator.Temp ))
             {
-                var pathLength = SSFASolver.SolveV2( start, destination, portals, pathResult );
+                var pathLength = SSFASolver.Solve( start, destination, portals, pathResult );
 
                 Assert.AreEqual(
                     pathResult.Take( pathLength ).ToArray(),

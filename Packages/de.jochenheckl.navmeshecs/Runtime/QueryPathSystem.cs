@@ -12,7 +12,7 @@ namespace de.JochenHeckl.NavMeshECS
     {
         private const int PathNodePoolSizeDefault = 100;
         private const int MaxIterationsPerUpdateDefault = 100;
-        private const int MaxNumParallelQueriesDefault = 4;
+        private const int MaxNumParallelQueriesDefault = 25;
         private const int MaxPathLength = 100;
 
         private UpdateNavMeshQueryJob[] activeJobs = new UpdateNavMeshQueryJob[] { };
@@ -85,9 +85,10 @@ namespace de.JochenHeckl.NavMeshECS
                         updateResult = new NativeArray<UpdateNavMeshQueryJob.UpdateResult>( 1, Allocator.Persistent ),
                         pathResult = new NativeArray<float3>( MaxPathLength, Allocator.Persistent )
                     } );
+                    
+                    PostUpdateCommands.RemoveComponent<QueryPathRequestData>( entity );
                 }
 
-                PostUpdateCommands.RemoveComponent<QueryPathRequestData>( entity );
             } );
 
             activeJobs = activeJobs.Concat( newActiveJobs ).ToArray();

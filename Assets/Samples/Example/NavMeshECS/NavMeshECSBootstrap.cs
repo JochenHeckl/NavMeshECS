@@ -7,19 +7,19 @@ using Unity.Transforms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace de.JochenHeckl.NavMeshECS
+namespace de.JochenHeckl.NavMeshECS.Example
 {
 
     public class NavMeshECSBootstrap : MonoBehaviour
     {
         public GameObject agentPrefab;
-        public int numAgentsToSpawn = 1;
+        public int numAgentsToSpawn;
 
-        public int agentMinVelocity = 2;
-        public int agentMaxVelocity = 5;
+        public int agentMinVelocity;
+        public int agentMaxVelocity;
 
-        public float minSpawnRadius = 10f;
-        public float maxSpawnRadius = 40f;
+        public float minSpawnRadius;
+        public float maxSpawnRadius;
 
         private Entity agentPrefabEntity;
 
@@ -47,7 +47,7 @@ namespace de.JochenHeckl.NavMeshECS
             {
                 activeAgent = entityManager.Instantiate( agentPrefabEntity );
 
-                var agentPosition = MakeRandomPosition( minSpawnRadius, maxSpawnRadius );
+                var agentPosition = RandomPosition.MakeRandomPosition( minSpawnRadius, maxSpawnRadius );
                 
                 entityManager.SetComponentData( activeAgent, new Translation() { Value = agentPosition } );
 
@@ -60,10 +60,6 @@ namespace de.JochenHeckl.NavMeshECS
             }
         }
 
-        private float3 MakeRandomPosition( float minSpawnRadius, float maxSpawnRadius )
-        {
-            var position = UnityEngine.Random.insideUnitCircle * minSpawnRadius * UnityEngine.Random.Range( minSpawnRadius, maxSpawnRadius );
-            return new float3( position.x, 0f, position.y );
-        }
+        
     }
 }

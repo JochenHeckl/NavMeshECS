@@ -5,7 +5,7 @@ using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace de.JochenHeckl.NavMeshECS
+namespace de.JochenHeckl.NavMeshECS.Example
 {
     [UpdateBefore( typeof( QueryPathSystem ) )]
     public class RepathToRandomPositionSystem : ComponentSystem
@@ -22,6 +22,8 @@ namespace de.JochenHeckl.NavMeshECS
                 if (pathLocomotionData.destinationReached)
                 {
                     pathLocomotionData.destinationReached = false;
+                    pathLocomotionData.nextPathVertexIndex = 0;
+
                     EntityManager.RemoveComponent<PathVertexResultData>( entity );
                     
                     SetNewDestination( entity, translation );
@@ -31,15 +33,8 @@ namespace de.JochenHeckl.NavMeshECS
 
         private void SetNewDestination( Entity entity, Translation translation )
         {
-            var newDestination = MakeRandomPosition();
-            var upOffset = new float3( 0f, 0.5f, 0f );
-
-            Debug.DrawLine(
-                translation.Value + upOffset,
-                newDestination + upOffset,
-                Color.red,
-                5f );
-
+            var newDestination = RandomPosition.MakeRandomPosition(MinSpawnRadius, MaxSpawnRadius);
+            
             var newDestinationQuery = new QueryPathRequestData()
             {
                 agentTypeId = 0,
@@ -58,12 +53,6 @@ namespace de.JochenHeckl.NavMeshECS
             {
                 EntityManager.AddComponentData( entity, newDestinationQuery );
             }
-        }
-
-        private float3 MakeRandomPosition()
-        {
-            var position = UnityEngine.Random.insideUnitCircle * MinSpawnRadius * UnityEngine.Random.Range( MinSpawnRadius, MaxSpawnRadius );
-            return new float3( position.x, 0f, position.y );
         }
     }
 }
