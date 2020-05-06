@@ -8,5 +8,12 @@
   "dependencies": {
     "com.unity.test-framework": "1.1.11",
     "com.unity.entities": "0.10.0-preview.6"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "NavMeshECS",
+      "description": "The actual example this package consits of.",
+      "path": "Samples~/NavMeshECS"
+    }
+  ]
 }
