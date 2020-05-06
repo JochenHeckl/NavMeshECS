@@ -2,6 +2,8 @@
 
 Simple example of some agents running around a simple environment using Unity ECS and NavMeshQueries as jobs aswell as a custom "Simple Stupid Funnel Algorithm" solver for query results.
 
+![Unity Editor Playing](Documentation~/images/NavMeshECSRun.png)
+
 # FAQ
 
 - **Q: Well I imported the example, but it's all pink and I can't see anything.**
