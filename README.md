@@ -12,4 +12,4 @@ Simple example of some agents running around a simple environment using Unity EC
 
 - **Q: Everything seems to be fine but the capsules are not moving.**
 
-  *A: Sometimes the nav mesh data seems to break when importing samples from packages. Simply bake you navmesh data to solve this problem.
+  *A: Sometimes the nav mesh data seems to break when importing samples from packages. Simply bake you navmesh data to solve this problem.*
