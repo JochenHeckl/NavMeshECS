@@ -1,9 +1,9 @@
 {
-    "name": "De.JochenHeckl.NavMeshECS.Tests",
+    "name": "de.JochenHeckl.Unity.NavMeshECS.Tests",
     "references": [
-        "Undefined.DeJochenhecklNavmeshecs",
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:8de9aede07feb0341817ae576e89d60c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
